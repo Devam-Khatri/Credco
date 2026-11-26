@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="favLit" x1="18" y1="8" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FAF0CA" />
+      <stop offset="55%" stop-color="#E7CC83" />
+      <stop offset="100%" stop-color="#C9A34A" />
+    </linearGradient>
+    <linearGradient id="favMid" x1="10" y1="14" x2="54" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#E7CC83" />
+      <stop offset="100%" stop-color="#B88D2E" />
+    </linearGradient>
+    <linearGradient id="favShade" x1="33" y1="9" x2="46" y2="42" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C9A34A" />
+      <stop offset="100%" stop-color="#8B671B" />
+    </linearGradient>
+    <linearGradient id="favArc" x1="8" y1="47" x2="56" y2="47" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#9E7621" />
+      <stop offset="50%" stop-color="#F5E1A4" />
+      <stop offset="100%" stop-color="#9E7621" />
+    </linearGradient>
+    <mask id="favMask">
+      <rect width="64" height="64" fill="white" />
+      <rect x="17" y="27" width="2" height="6" fill="black" />
+      <rect x="36.5" y="22.5" width="2" height="6.5" fill="black" />
+      <rect x="36.5" y="30.8" width="2" height="4.2" fill="black" />
+    </mask>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0E0D0B" />
+  <rect x="2" y="2" width="60" height="60" rx="12" stroke="#C9A34A" stroke-opacity="0.35" stroke-width="1" />
+  <g mask="url(#favMask)">
+    <path d="M13 42V26.5L22.5 18.5V40.5Z" fill="url(#favMid)" />
+    <path d="M25 40V21.2L33 13V39.2Z" fill="url(#favLit)" />
+    <path d="M33 13L41 20.5V40L33 39.2Z" fill="url(#favShade)" />
+    <path d="M43.5 40.5V23.8L51.5 29V42Z" fill="url(#favMid)" />
+  </g>
+  <path d="M8 47.5C21.5 39.5 42.5 39.5 56 47.5C42.5 42.6 21.5 42.6 8 47.5Z" fill="url(#favArc)" />
+</svg>

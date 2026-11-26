@@ -1,0 +1,30 @@
+/* Keep the brand cursor on devices with a precise pointing device. */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: url("/media/credco-cursor.png") 2 2, auto;
+  }
+}
+
+#credco-welcome-popup :focus-visible {
+  outline: 2px solid #9a7a2c;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.form-fallback {
+  max-width: 56rem;
+  margin: 6rem auto 2rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.form-fallback a {
+  text-decoration: underline;
+}
