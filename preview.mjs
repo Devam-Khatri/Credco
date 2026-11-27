@@ -18,10 +18,14 @@ const contentTypes = new Map(Object.entries({
   woff2: "font/woff2",
 }));
 const allowedFiles = /^(?:\/(?:index|404)\.html|\/(?:robots\.txt|sitemap\.xml|favicon\.svg)|\/(?:css|js|media|fonts)\/[a-zA-Z0-9._-]+|\/(?:about|services|projects|gallery|reviews|process|blog|contact|consultation|faq|privacy-policy|terms-and-conditions)(?:\/[a-z\d-]+)?(?:\.html)?)$/;
-const { headers } = JSON.parse(await readFile(resolve(root, "vercel.json"), "utf8"));
-const securityHeaders = Object.fromEntries(headers[0].headers
-  .filter(({ key }) => key !== "Strict-Transport-Security")
-  .map(({ key, value }) => [key, value.replace("; upgrade-insecure-requests", "")]));
+// Optional security headers: used only if a vercel.json exists (the live site is on GitHub Pages).
+let securityHeaders = {};
+try {
+  const { headers } = JSON.parse(await readFile(resolve(root, "vercel.json"), "utf8"));
+  securityHeaders = Object.fromEntries(headers[0].headers
+    .filter(({ key }) => key !== "Strict-Transport-Security")
+    .map(({ key, value }) => [key, value.replace("; upgrade-insecure-requests", "")]));
+} catch {}
 const notFound = await readFile(resolve(root, "404.html"));
 
 function serve(request, response, bytes, type, status) {

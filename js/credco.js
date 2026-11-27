@@ -1251,7 +1251,7 @@ var CredcoLogo = ({
   ],
   businessPhone = `+91 9730006820`,
   whatsAppNumber = `919730006820`,
-  businessWebsite = `www.credcodesign.com`,
+  businessWebsite = `credcodesign.in`,
   companyName = `CREDCO – Creative Design And Construction Pvt. Ltd.`;
 function whatsAppUrl(e) {
   return `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(e.trim())}`;

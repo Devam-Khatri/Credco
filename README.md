@@ -25,12 +25,13 @@ The HTML files contain pre-rendered copies of each page for fast initial renderi
 
 Get Consultation is the highlighted action on the opening slide. The original navigation and secondary actions are still available. The consultation, contact, and feedback forms validate inputs and open a prefilled WhatsApp draft. Visitors send the message themselves in WhatsApp. Setup requires no API keys or frontend credentials. The site points the sample reel cards to the supplied Instagram profile where an individual reel URL is unavailable.
 
-## Deploy on Vercel
+## Deploy on GitHub Pages
 
-- Import the `credco-website` folder as a Vercel project with the **Other** framework preset. The included configuration builds the public files into `dist`, enables clean URLs, and applies security headers over HTTPS.
-- The sitemap and canonical URLs currently use `https://credco-interio.vercel.app`. If production uses a different domain, edit `SITE_ORIGIN` in `js/site-config.js` and run `npm run render` before deploying.
+- Push the folder contents to the repository root and enable GitHub Pages (Settings > Pages) for that branch. The `CNAME` file keeps the custom domain `credcodesign.in` set on every deploy.
+- The canonical origin is `https://credcodesign.in`. It is set once in `js/site-config.js` (`SITE_ORIGIN`) and in `businessWebsite` in `js/credco.js`. If the domain ever changes, edit both and run `npm run render` to regenerate every canonical URL, the sitemap and `robots.txt`.
+- Any other domain (a `www` or secondary domain) should redirect to `https://credcodesign.in`, never serve a copy of the site.
+- After deploying, submit `https://credcodesign.in/sitemap.xml` in Google Search Console.
 - The privacy policy and terms carry over the old pages and add the email contact and relevant browser-storage disclosure. Have CREDCO confirm the policy language reflects its current data-handling and project practices before publication.
-- Verify the production HTTP-to-HTTPS redirect, HSTS header, and a missing URL after the first deployment. The local preview uses loopback HTTP.
 
 ## Verification
 

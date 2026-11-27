@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.credcodesign.com/sitemap.xml
+Sitemap: https://credcodesign.in/sitemap.xml
