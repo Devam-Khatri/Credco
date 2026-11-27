@@ -28,3 +28,42 @@
 .form-fallback a {
   text-decoration: underline;
 }
+
+/* ---- Projects stats graphic + client reviews (added) ---- */
+.credco-reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .credco-reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1024px) {
+  .credco-reviews-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.-rotate-90 { transform: rotate(-90deg); }
+.w-28 { width: 7rem; }
+.h-28 { height: 7rem; }
+.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+@media (min-width: 640px) {
+  .sm\:w-32 { width: 8rem; }
+  .sm\:h-32 { height: 8rem; }
+  .sm\:gap-6 { gap: 1.5rem; }
+  .sm\:py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+  .sm\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
+}
+
+.justify-end { justify-content: flex-end; }

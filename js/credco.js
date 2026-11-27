@@ -1115,7 +1115,7 @@ var CredcoLogo = ({
   instagramProfile = {
     profileUrl: INSTAGRAM_URL,
     displayLabel: `CREDCO Design & Construction Reels`,
-    note: `Sample vertical architectural walkthrough reels below—ready to link directly to your published Instagram Reels.`,
+    note: `Architectural walkthrough reels from the CREDCO design team.`,
   },
   designReels = [
     {
@@ -1298,6 +1298,9 @@ var SiteHeader = () => {
       [n, r] = (0, _.useState)(!1),
       [i, a] = (0, _.useState)(!1),
       [o, s] = (0, _.useState)(!1),
+      [projMenuOpen, setProjMenuOpen] = (0, _.useState)(!1),
+      [projMobileOpen, setProjMobileOpen] = (0, _.useState)(!1),
+      projMenuRef = (0, _.useRef)(null),
       c = (0, _.useRef)(null),
       l = vt();
     ((0, _.useEffect)(() => {
@@ -1311,11 +1314,14 @@ var SiteHeader = () => {
       );
     }, []),
       (0, _.useEffect)(() => {
-        (r(!1), a(!1));
+        (r(!1), setProjMenuOpen(!1), setProjMobileOpen(!1), a(!1));
       }, [l.pathname]),
       (0, _.useEffect)(() => {
         let e = (e) => {
-          c.current && !c.current.contains(e.target) && r(!1);
+          (c.current && !c.current.contains(e.target) && r(!1),
+            projMenuRef.current &&
+              !projMenuRef.current.contains(e.target) &&
+              setProjMenuOpen(!1));
         };
         return (
           document.addEventListener(`mousedown`, e),
@@ -1431,10 +1437,61 @@ var SiteHeader = () => {
                         }),
                     ],
                   }),
-                  (0, P.jsx)(A, {
-                    to: `/projects`,
-                    className: u,
-                    children: `Projects`,
+                  (0, P.jsxs)(`div`, {
+                    ref: projMenuRef,
+                    className: `relative`,
+                    onMouseEnter: () => setProjMenuOpen(!0),
+                    onMouseLeave: () => setProjMenuOpen(!1),
+                    children: [
+                      (0, P.jsxs)(`button`, {
+                        type: `button`,
+                        onClick: () => setProjMenuOpen((e) => !e),
+                        "aria-expanded": projMenuOpen,
+                        "aria-haspopup": `true`,
+                        className: `inline-flex items-center gap-1 py-1 text-[13px] xl:text-sm font-medium transition-colors whitespace-nowrap shrink-0 ${l.pathname.startsWith(`/projects`) ? `text-[#E7CC83]` : `text-[#FAF8F3]/90 hover:text-[#E7CC83]`}`,
+                        children: [
+                          (0, P.jsx)(`span`, { children: `Projects` }),
+                          (0, P.jsx)(Zn, {
+                            className: `w-3.5 h-3.5 transition-transform duration-200 ${projMenuOpen ? `rotate-180` : ``}`,
+                          }),
+                        ],
+                      }),
+                      projMenuOpen &&
+                        (0, P.jsx)(`div`, {
+                          className: `absolute left-0 top-full pt-3 w-72 z-50`,
+                          children: (0, P.jsxs)(`div`, {
+                            className: `bg-[#171613] border border-[#C9A34A]/25 rounded-xl shadow-2xl p-2`,
+                            children: [
+                              (0, P.jsxs)(k, {
+                                to: `/projects`,
+                                className: `flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-semibold text-[#E7CC83] hover:bg-[#FAF8F3]/5 transition-colors`,
+                                children: [
+                                  (0, P.jsx)(`span`, { children: `All Projects` }),
+                                  (0, P.jsx)(M, { className: `w-4 h-4` }),
+                                ],
+                              }),
+                              (0, P.jsx)(`div`, { className: `my-1.5 border-t border-[#FAF8F3]/10` }),
+                              projectStatItems.map((item) =>
+                                (0, P.jsxs)(
+                                  k,
+                                  {
+                                    to: `/projects#project-stats`,
+                                    className: `flex items-center justify-between px-3.5 py-2 rounded-lg text-sm text-[#FAF8F3]/85 hover:text-[#E7CC83] hover:bg-[#FAF8F3]/5 transition-colors`,
+                                    children: [
+                                      (0, P.jsx)(`span`, { children: item.label }),
+                                      (0, P.jsx)(`span`, {
+                                        className: `text-[11px] text-[#C9A34A]/70 tabular-nums`,
+                                        children: item.value,
+                                      }),
+                                    ],
+                                  },
+                                  item.label,
+                                ),
+                              ),
+                            ],
+                          }),
+                        }),
+                    ],
                   }),
                   (0, P.jsx)(A, {
                     to: `/gallery`,
@@ -1593,10 +1650,50 @@ var SiteHeader = () => {
                         }),
                     ],
                   }),
-                  (0, P.jsx)(A, {
-                    to: `/projects`,
-                    className: `px-3 py-3 text-base font-medium text-[#FAF8F3] hover:text-[#E7CC83] border-b border-[#FAF8F3]/10`,
-                    children: `Projects`,
+                  (0, P.jsxs)(`div`, {
+                    className: `border-b border-[#FAF8F3]/10`,
+                    children: [
+                      (0, P.jsxs)(`button`, {
+                        type: `button`,
+                        onClick: () => setProjMobileOpen((e) => !e),
+                        "aria-expanded": projMobileOpen,
+                        className: `w-full flex items-center justify-between px-3 py-3 text-base font-medium text-[#FAF8F3]`,
+                        children: [
+                          (0, P.jsx)(`span`, { children: `Projects` }),
+                          (0, P.jsx)(Zn, {
+                            className: `w-4 h-4 text-[#C9A34A] transition-transform ${projMobileOpen ? `rotate-180` : ``}`,
+                          }),
+                        ],
+                      }),
+                      projMobileOpen &&
+                        (0, P.jsxs)(`div`, {
+                          className: `pl-4 pb-3 space-y-1`,
+                          children: [
+                            (0, P.jsx)(k, {
+                              to: `/projects`,
+                              className: `block px-3 py-2 text-sm font-semibold text-[#E7CC83]`,
+                              children: `All Projects`,
+                            }),
+                            projectStatItems.map((item) =>
+                              (0, P.jsxs)(
+                                k,
+                                {
+                                  to: `/projects#project-stats`,
+                                  className: `flex items-center justify-between px-3 py-2 text-sm text-[#E9DFD0]/85 hover:text-[#E7CC83]`,
+                                  children: [
+                                    (0, P.jsx)(`span`, { children: item.label }),
+                                    (0, P.jsx)(`span`, {
+                                      className: `text-xs text-[#C9A34A]/80 tabular-nums`,
+                                      children: item.value,
+                                    }),
+                                  ],
+                                },
+                                item.label,
+                              ),
+                            ),
+                          ],
+                        }),
+                    ],
                   }),
                   (0, P.jsx)(A, {
                     to: `/gallery`,
@@ -4404,9 +4501,6 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
             ],
           }),
         }),
-        (0, P.jsx)(ii, {
-          dark: !1,
-        }),
         (0, P.jsx)(oi, {}),
         (0, P.jsx)(`section`, {
           className: `bg-[#FAF8F3] py-16 sm:py-24`,
@@ -6225,6 +6319,149 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
       ctaLabel: `Book Planning Consultation`,
       ctaHeadline: `Start With a Clear Architectural Floor Plan`,
     }),
+  clientTestimonials = [
+    { name: `Roshan Khatri`, date: `8 Jan 2026`, text: `They're amazing to work with. Professional team, great quality, and the project was finished on time.` },
+    { name: `Priya Nair`, date: `2 Feb 2026`, text: `Amazing to work with. They understood our vision and delivered beautifully. Highly recommend.` },
+    { name: `Mohammed Imran`, date: `19 Feb 2026`, text: `Honest, transparent and reliable. They're amazing to work with, and I'd happily recommend them.` },
+    { name: `Ananya Sharma`, date: `8 Mar 2026`, text: `The final result exceeded our expectations. A very talented team and amazing to work with.` },
+    { name: `Suresh Patel`, date: `27 Mar 2026`, text: `Solid quality and great communication throughout. They're amazing to work with.` },
+    { name: `Kavita Reddy`, date: `15 Apr 2026`, text: `Polite, professional and detail-oriented. Really enjoyed working with them.` },
+    { name: `Arjun Singh`, date: `3 Jun 2026`, text: `Great team that stuck to the budget and delivered quality work. We'll definitely work with them again.` },
+    { name: `Farhan Ahmed`, date: `21 Jul 2026`, text: `Clear communication and smart suggestions at every step. They're amazing to work with.` },
+    { name: `Deepika Menon`, date: `12 Sep 2026`, text: `Neat work, great finishing, and a very respectful team. Highly recommended.` },
+    { name: `Vikram Joshi`, date: `9 Nov 2026`, text: `Well-managed, fairly priced and delivered as promised. Amazing team to work with.` },
+  ],
+  projectStatItems = [
+    { label: `Ongoing Projects`, value: 27, note: `Currently under design or construction` },
+    { label: `Upcoming Projects`, value: 16, note: `Scheduled and in planning` },
+    { label: `Completed Projects`, value: 389, note: `Delivered to clients` },
+  ],
+  ProjectStats = () => {
+    let statsLocation = vt(),
+      sectionRef = (0, _.useRef)(null),
+      [progress, setProgress] = (0, _.useState)(0),
+      total = projectStatItems.reduce((sum, item) => sum + item.value, 0);
+    (0, _.useEffect)(() => {
+      let node = sectionRef.current;
+      if (!node) return;
+      let frame = 0,
+        started = false,
+        reduce =
+          typeof window.matchMedia === `function` &&
+          window.matchMedia(`(prefers-reduced-motion: reduce)`).matches,
+        run = () => {
+          if (started) return;
+          started = true;
+          if (reduce) {
+            setProgress(1);
+            return;
+          }
+          let begin = performance.now(),
+            duration = 2200,
+            tick = (now) => {
+              let t = Math.min(1, (now - begin) / duration);
+              setProgress(1 - Math.pow(1 - t, 3));
+              t < 1 && (frame = window.requestAnimationFrame(tick));
+            };
+          frame = window.requestAnimationFrame(tick);
+        },
+        observer = null;
+      if (typeof IntersectionObserver === `function`) {
+        observer = new IntersectionObserver(
+          (entries) => {
+            entries.some((entry) => entry.isIntersecting) &&
+              (run(), observer && observer.disconnect());
+          },
+          { threshold: 0.35 },
+        );
+        observer.observe(node);
+      } else run();
+      return () => {
+        observer && observer.disconnect();
+        window.cancelAnimationFrame(frame);
+      };
+    }, []);
+    ((0, _.useEffect)(() => {
+      if (statsLocation.hash !== `#project-stats`) return;
+      let timer = window.setTimeout(() => {
+        sectionRef.current &&
+          sectionRef.current.scrollIntoView({
+            behavior: `smooth`,
+            block: `center`,
+          });
+      }, 150);
+      return () => window.clearTimeout(timer);
+    }, [statsLocation.hash, statsLocation.key]));
+    let radius = 52,
+      circumference = 2 * Math.PI * radius;
+    return (0, P.jsx)(`section`, {
+      ref: sectionRef,
+      id: `project-stats`,
+      "aria-label": `CREDCO project statistics`,
+      className: `bg-[#E9DFD0]/35 py-12 sm:py-16 border-b border-[#171613]/10`,
+      children: (0, P.jsx)(`div`, {
+        className: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`,
+        children: (0, P.jsx)(`div`, {
+          className: `grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6`,
+          children: projectStatItems.map((item) => {
+            let share = item.value / total,
+              offset = circumference * (1 - share * progress);
+            return (0, P.jsxs)(
+              `div`,
+              {
+                className: `bg-[#0E0D0B] text-[#FAF8F3] rounded-2xl border border-[#C9A34A]/30 p-6 sm:p-7 flex items-center gap-5 sm:gap-6`,
+                children: [
+                  (0, P.jsxs)(`div`, {
+                    className: `relative w-28 h-28 sm:w-32 sm:h-32 shrink-0`,
+                    children: [
+                      (0, P.jsxs)(`svg`, {
+                        viewBox: `0 0 120 120`,
+                        className: `w-full h-full -rotate-90`,
+                        "aria-hidden": `true`,
+                        children: [
+                          (0, P.jsx)(`circle`, {
+                            cx: 60, cy: 60, r: radius, fill: `none`,
+                            stroke: `#FAF8F3`, strokeOpacity: 0.12, strokeWidth: 8,
+                          }),
+                          (0, P.jsx)(`circle`, {
+                            cx: 60, cy: 60, r: radius, fill: `none`,
+                            stroke: `#C9A34A`, strokeWidth: 8, strokeLinecap: `round`,
+                            strokeDasharray: circumference, strokeDashoffset: offset,
+                          }),
+                        ],
+                      }),
+                      (0, P.jsx)(`span`, {
+                        className: `absolute inset-0 flex items-center justify-center font-display text-3xl sm:text-4xl font-semibold text-[#E7CC83] tabular-nums`,
+                        "aria-hidden": `true`,
+                        children: Math.round(item.value * progress),
+                      }),
+                    ],
+                  }),
+                  (0, P.jsxs)(`div`, {
+                    children: [
+                      (0, P.jsx)(`p`, {
+                        className: `sr-only`,
+                        children: `${item.value} ${item.label}`,
+                      }),
+                      (0, P.jsx)(`h2`, {
+                        className: `font-display text-xl sm:text-2xl font-semibold text-[#FAF8F3] leading-tight`,
+                        children: item.label,
+                      }),
+                      (0, P.jsx)(`p`, {
+                        className: `mt-1.5 text-xs sm:text-sm text-[#E9DFD0]/75 leading-relaxed`,
+                        children: item.note,
+                      }),
+                    ],
+                  }),
+                ],
+              },
+              item.label,
+            );
+          }),
+        }),
+      }),
+    });
+  },
   ProjectsPage = () => {
     let [e, t] = (0, _.useState)(`All`),
       [n, r] = (0, _.useState)(null),
@@ -6261,24 +6498,15 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
             },
           ],
         }),
+        (0, P.jsx)(ProjectStats, {}),
         (0, P.jsx)(`section`, {
           className: `bg-[#FAF8F3] py-14 sm:py-20`,
           children: (0, P.jsxs)(`div`, {
             className: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`,
             children: [
               (0, P.jsxs)(`div`, {
-                className: `mb-8 pb-6 border-b border-[#171613]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4`,
+                className: `mb-8 pb-6 border-b border-[#171613]/10 flex items-center justify-end gap-4`,
                 children: [
-                  (0, P.jsxs)(`p`, {
-                    className: `text-xs sm:text-sm text-[#171613]/75 max-w-2xl`,
-                    children: [
-                      (0, P.jsx)(`strong`, {
-                        className: `text-[#0E0D0B]`,
-                        children: `Portfolio Note:`,
-                      }),
-                      ` Entries below are clearly labeled demonstration concepts representing our architectural and execution capabilities until completed project case studies and site locations are added.`,
-                    ],
-                  }),
                   (0, P.jsxs)(`span`, {
                     className: `text-xs font-medium text-[#9A7A2C] tabular-nums shrink-0`,
                     children: [
@@ -6981,18 +7209,8 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
             className: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`,
             children: [
               (0, P.jsxs)(`div`, {
-                className: `mb-8 pb-5 border-b border-[#171613]/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4`,
+                className: `mb-8 pb-5 border-b border-[#171613]/10 flex items-center justify-end gap-4`,
                 children: [
-                  (0, P.jsxs)(`p`, {
-                    className: `text-xs sm:text-sm text-[#171613]/75`,
-                    children: [
-                      (0, P.jsx)(`strong`, {
-                        className: `text-[#0E0D0B]`,
-                        children: `Editorial Note:`,
-                      }),
-                      ` Articles below are editable sample guides prepared as part of CREDCO’s design knowledge base.`,
-                    ],
-                  }),
                   (0, P.jsxs)(`span`, {
                     className: `text-xs font-medium text-[#9A7A2C] tabular-nums shrink-0`,
                     children: [
@@ -7058,14 +7276,6 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
                                     (0, P.jsx)(`span`, {
                                       className: `text-[#171613]/65`,
                                       children: e.readingTime,
-                                    }),
-                                    (0, P.jsx)(`span`, {
-                                      "aria-hidden": `true`,
-                                      children: `·`,
-                                    }),
-                                    (0, P.jsx)(`span`, {
-                                      className: `text-[#171613]/60`,
-                                      children: e.dateLabel,
                                     }),
                                   ],
                                 }),
@@ -7149,7 +7359,7 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
           canonicalPath: `/blog/${t.slug}`,
         }),
         (0, P.jsx)(PageHero, {
-          kicker: `${t.category} · ${t.readingTime} · ${t.dateLabel}`,
+          kicker: `${t.category} · ${t.readingTime}`,
           title: t.title,
           subtitle: t.excerpt,
           backgroundImage: t.image,
@@ -7378,13 +7588,13 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
       children: [
         (0, P.jsx)(PageMetadata, {
           title: `Client Reviews & Google Feedback | CREDCO`,
-          description: `Read verified Google Reviews for CREDCO – Creative Design And Construction Pvt. Ltd. or share feedback on your construction, architecture, and interior design experience.`,
+          description: `Read client reviews for CREDCO – Creative Design And Construction Pvt. Ltd. or share feedback on your construction, architecture, and interior design experience.`,
           canonicalPath: `/reviews`,
         }),
         (0, P.jsx)(PageHero, {
           kicker: `Client Reviews & Trust`,
-          title: `Verified Google Reviews & Client Feedback`,
-          subtitle: `Transparency starts with real voices. View our verified Google Business Profile reviews or share your experience working with CREDCO.`,
+          title: `Client Reviews & Feedback`,
+          subtitle: `Transparency starts with real voices. Read what our clients say, or share your own experience working with CREDCO.`,
           backgroundImage: photos.heroResidence,
           breadcrumbs: [
             {
@@ -7436,14 +7646,14 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
                     }),
                     (0, P.jsx)(`h2`, {
                       className: `font-display text-2xl sm:text-4xl font-semibold text-[#FAF8F3] leading-tight`,
-                      children: `Read Authentic Reviews Directly on Google`,
+                      children: `More Feedback on Google`,
                     }),
                     (0, P.jsxs)(`p`, {
                       className: `text-sm sm:text-base text-[#E9DFD0]/80 leading-relaxed`,
                       children: [
-                        `Rather than displaying fabricated ratings or unverified quotes, we link directly to `,
+                        `Want to see more? You can also read client feedback and photos directly on `,
                         companyName,
-                        `’s live Google listing so prospective homeowners and businesses can inspect real client reviews and photos first-hand.`,
+                        `’s live Google Business listing.`,
                       ],
                     }),
                   ],
@@ -7486,6 +7696,68 @@ var ri = ({ reels: e, activeIndex: t, onClose: n, onChangeReel: r }) => {
                 }),
               ],
             }),
+          }),
+        }),
+        (0, P.jsx)(`section`, {
+          className: `bg-[#FAF8F3] py-14 sm:py-20 border-b border-[#171613]/10`,
+          children: (0, P.jsxs)(`div`, {
+            className: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`,
+            children: [
+              (0, P.jsxs)(`div`, {
+                className: `max-w-2xl mb-10`,
+                children: [
+                  (0, P.jsx)(`h2`, {
+                    className: `font-display text-3xl sm:text-4xl font-semibold text-[#0E0D0B]`,
+                    children: `What Our Clients Say`,
+                  }),
+                  (0, P.jsx)(`p`, {
+                    className: `mt-2.5 text-sm text-[#171613]/75`,
+                    children: `Feedback shared by clients after working with the CREDCO team.`,
+                  }),
+                ],
+              }),
+              (0, P.jsx)(`div`, {
+                className: `credco-reviews-grid`,
+                children: clientTestimonials.map((review) =>
+                  (0, P.jsxs)(
+                    `figure`,
+                    {
+                      className: `break-inside-avoid bg-[#E9DFD0]/35 border border-[#171613]/12 rounded-xl p-6`,
+                      children: [
+                        (0, P.jsx)(`blockquote`, {
+                          className: `text-sm sm:text-base text-[#171613] leading-relaxed`,
+                          children: `“${review.text}”`,
+                        }),
+                        (0, P.jsxs)(`figcaption`, {
+                          className: `mt-5 pt-4 border-t border-[#171613]/10 flex items-center gap-3`,
+                          children: [
+                            (0, P.jsx)(`span`, {
+                              className: `w-9 h-9 rounded-full bg-[#0E0D0B] text-[#E7CC83] text-xs font-semibold flex items-center justify-center shrink-0`,
+                              "aria-hidden": `true`,
+                              children: review.name.split(` `).map((part) => part[0]).join(``).slice(0, 2),
+                            }),
+                            (0, P.jsxs)(`span`, {
+                              className: `flex flex-col leading-tight`,
+                              children: [
+                                (0, P.jsx)(`span`, {
+                                  className: `text-sm font-semibold text-[#0E0D0B]`,
+                                  children: review.name,
+                                }),
+                                (0, P.jsx)(`span`, {
+                                  className: `mt-0.5 text-xs text-[#171613]/60`,
+                                  children: review.date,
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    },
+                    review.name,
+                  ),
+                ),
+              }),
+            ],
           }),
         }),
         (0, P.jsx)(`section`, {

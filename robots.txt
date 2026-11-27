@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://credco-interio.vercel.app/sitemap.xml
+Sitemap: https://www.credcodesign.com/sitemap.xml
